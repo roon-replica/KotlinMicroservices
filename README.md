@@ -11,6 +11,7 @@
   - resilient?
   - elastic
   - message driven?
+  
   ![](src/main/resources/static/img/reactiveManifesto.png)
 
 - 리액티브 프로그래밍 모델 장점
@@ -24,6 +25,8 @@
 # 생각들
 - 클라우드 네이티브한 애플리케이션이 어떤건지 모르겠음
 - MSA에서는 Thymeleaf가 필요없는 이유는?
+- 애플리케이션을 패키징한다는게 정확히 뭔지
+  - [geeksforgeeks / jar file 설명](https://www.geeksforgeeks.org/jar-files-java/)
 
 # 참고 자료 
 - Hands on Microservices With Kotlin (에이콘 출판)

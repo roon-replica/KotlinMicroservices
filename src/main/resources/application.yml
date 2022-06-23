@@ -1,6 +1,7 @@
 service:
   message:
     hello: "hello~"
+    hello2: "hello2~"
 
 one:
   value: 1

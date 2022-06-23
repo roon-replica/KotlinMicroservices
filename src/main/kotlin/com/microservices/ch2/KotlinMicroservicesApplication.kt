@@ -1,8 +1,10 @@
 package com.microservices.ch2
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -15,6 +17,7 @@ class KotlinMicroservicesApplication
 
 @Controller
 class FirstController {
+    @Qualifier("ExampleServiceImpl2")
     @Autowired
     lateinit var exampleService: ExampleService
 

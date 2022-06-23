@@ -3,7 +3,7 @@ package com.microservices.ch2
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
-@Service
+@Service("ExampleServiceImpl")
 class ExampleServiceImpl : ExampleService {
     // TODO : 역슬래시 왜 필요하지?
     @Value(value = "\${service.message.hello}")

@@ -1,7 +1,7 @@
 service:
   message:
     hello: "hello in develop profile"
-
+    hello2: "hello2 in develop profile"
 one:
   value: "1"
 two:
