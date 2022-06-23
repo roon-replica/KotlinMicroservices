@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
@@ -20,6 +21,10 @@ class FirstController {
     @RequestMapping(value = ["hello/{name}"], method = [RequestMethod.GET])
     @ResponseBody
     fun hello(@PathVariable name: String) = exampleService.getHello(name)
+
+    @GetMapping("/test/annotation/value")
+    @ResponseBody
+    fun testAnnotationValue() = exampleService.valueTest()
 }
 
 fun main(args: Array<String>) {
