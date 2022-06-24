@@ -27,6 +27,10 @@
 - MSA에서는 Thymeleaf가 필요없는 이유는?
 - 애플리케이션을 패키징한다는게 정확히 뭔지
   - [geeksforgeeks / jar file 설명](https://www.geeksforgeeks.org/jar-files-java/)
+- kotlin 'it' 키워드가 무엇인지
+- 'safe call' 잘 모름
+- kotlin data class가 ObjectMapper 보다 더 나은 메서드를 제공한다는데 어떻게 다른지 잘 모름
+  (예상으론 단순한 값 복사 vs reflection이라 더 낫다는거 같은데)
 
 # 참고 자료 
 - Hands on Microservices With Kotlin (에이콘 출판)
