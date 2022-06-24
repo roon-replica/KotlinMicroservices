@@ -21,4 +21,16 @@ class CustomerController {
     @GetMapping("/customers/value")
     fun getCustomersValue() = customers.map(Map.Entry<Int, Customer>::value).toList()
 
+    @GetMapping("/customer/anonymous/expression")
+    fun anonymousObjectExpression() = object {
+        val id = -1
+        val name = "anonymous object expression test"
+    }
+
+    @GetMapping("/customer/anonymous/declaration")
+    fun anonymousObjectDeclaration() = SampleCustomer
+
+    object SampleCustomer {
+        val sample = Customer(-1, "anonymous object declaration test")
+    }
 }
