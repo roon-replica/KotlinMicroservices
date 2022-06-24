@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.util.concurrent.ConcurrentHashMap
 
@@ -16,7 +17,10 @@ class CustomerController {
     fun getCustomer(@PathVariable id: Int): Customer = customers.getOrDefault(id, Customer(id, "unknown"))
 
     @GetMapping("/customers")
-    fun getCustomersAll() = customers
+    fun getCustomersContainingName(@RequestParam(required = false, defaultValue = "") nameFilter: String) = customers
+        .filter { it.value.name.contains(nameFilter) }
+        .map(Map.Entry<Int, Customer>::value)
+        .toList()
 
     @GetMapping("/customers/value")
     fun getCustomersValue() = customers.map(Map.Entry<Int, Customer>::value).toList()
