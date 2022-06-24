@@ -1,6 +1,8 @@
 package com.microservices.ch3
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import java.net.URI
 
 @RestController
 class CustomerController {
@@ -16,7 +19,14 @@ class CustomerController {
     lateinit var customerService: CustomerService
 
     @GetMapping(value = ["/customer/{id}"])
-    fun getCustomer(@PathVariable id: Int): Customer? = customerService.getCustomer(id)
+    fun getCustomer(@PathVariable id: Int): ResponseEntity<Customer> {
+        val customer = customerService.getCustomer(id)
+
+        val status = if (customer == null) HttpStatus.NOT_FOUND else HttpStatus.OK
+        return ResponseEntity
+            .status(status)
+            .body(customer);
+    }
 
     @GetMapping("/customers")
     fun searchCustomers(@RequestParam(required = false, defaultValue = "") nameFilter: String) =
@@ -39,12 +49,31 @@ class CustomerController {
     }
 
     @PostMapping("/customer")
-    fun createCustomer(@RequestBody customer: Customer) = customerService.createCustomer(customer)
+    fun createCustomer(@RequestBody customer: ResponseEntity<Customer>): ResponseEntity<Unit> { // Unit = void
+        return ResponseEntity
+            .created(URI.create("/customer/" + customer.body?.id))  // "?." 라는 safe call이 뭐지
+            .build()
+    }
 
     @DeleteMapping("/customer/{id}")
-    fun deleteCustomer(@PathVariable id: Int) = customerService.deleteCustomer(id)
+    fun deleteCustomer(@PathVariable id: Int): ResponseEntity<Unit> {
+        var status = HttpStatus.NOT_FOUND
+        if (customerService.getCustomer(id) != null) {
+            customerService.deleteCustomer(id)
+            status = HttpStatus.OK
+        }
+
+        return ResponseEntity.status(status).build()
+    }
 
     @PutMapping("/customer/{id}")
-    fun updateCustomer(@PathVariable id: Int, @RequestBody customer: Customer) =
-        customerService.updateCustomer(id, customer)
+    fun updateCustomer(@PathVariable id: Int, @RequestBody customer: Customer): ResponseEntity<Unit> {
+        var status = HttpStatus.NOT_FOUND
+        if (customerService.getCustomer(id) != null) {
+            customerService.updateCustomer(id, customer)
+            status = HttpStatus.OK
+        }
+        return ResponseEntity.status(status).build()
+    }
+
 }

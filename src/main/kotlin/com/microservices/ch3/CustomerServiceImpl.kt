@@ -9,7 +9,7 @@ class CustomerServiceImpl : CustomerService {
     @Autowired
     lateinit var customers: ConcurrentHashMap<Int, Customer>
 
-    override fun getCustomer(id: Int): Customer? = customers.getOrDefault(id, Customer(id, "unknown"))
+    override fun getCustomer(id: Int): Customer? = customers.getOrDefault(id, null)
 
     override fun searchCustomers(nameFilter: String): List<Customer> = customers
         .filter { it.value.name.contains(nameFilter) } // https://kotlinlang.org/docs/lambdas.html#it-implicit-name-of-a-single-parameter
